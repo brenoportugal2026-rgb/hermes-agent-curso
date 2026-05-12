@@ -5,306 +5,292 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hermes Agent — Curso Completo</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
 :root {
   --accent: #3b82f6;
-  --accent-glow: rgba(59,130,246,0.6);
+  --accent2: #a78bfa;
   --text: #f0f4ff;
-  --text-muted: rgba(240,244,255,0.5);
+  --text-dim: rgba(240,244,255,0.45);
+  --text-mid: rgba(240,244,255,0.7);
   --bg: #05070d;
+  --radius: 16px;
+  --font: 'Inter', -apple-system, sans-serif;
 }
 
-html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
-
-body {
-  font-family: 'Inter', -apple-system, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  overflow-x: hidden;
-}
+html { scroll-behavior:smooth; scroll-snap-type:y mandatory; }
+body { font-family:var(--font); background:var(--bg); color:var(--text); overflow-x:hidden; }
 
 /* ─── NAV ─── */
 nav {
-  position: fixed; top: 0; left: 0; right: 0;
-  z-index: 1000;
-  padding: 1.2rem 3rem;
-  display: flex; justify-content: space-between; align-items: center;
-  background: linear-gradient(180deg, rgba(5,7,13,0.98) 0%, transparent 100%);
-  backdrop-filter: blur(16px);
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  padding:1rem 3rem;
+  display:flex; justify-content:space-between; align-items:center;
+  background:linear-gradient(180deg, rgba(5,7,13,0.98) 0%, transparent 100%);
+  backdrop-filter:blur(20px);
 }
-
-nav .logo { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; }
-nav .logo .accent { color: var(--accent); }
-nav .nav-links { display: flex; gap: 2rem; }
+nav .logo { font-size:1.2rem; font-weight:800; display:flex; align-items:center; gap:8px; }
+nav .logo .accent { color:var(--accent); }
+nav .nav-links { display:flex; gap:2rem; }
 nav .nav-links a {
-  color: var(--text-muted); text-decoration: none;
-  font-size: 0.8rem; font-weight: 500; letter-spacing: 1px;
-  text-transform: uppercase; transition: color 0.3s;
-  position: relative;
+  color:var(--text-dim); text-decoration:none;
+  font-size:0.75rem; font-weight:500; letter-spacing:1.5px;
+  text-transform:uppercase; transition:color 0.3s; position:relative;
 }
 nav .nav-links a::after {
-  content: ''; position: absolute; bottom: -4px; left: 0;
-  width: 0; height: 2px; background: var(--accent); transition: width 0.3s;
+  content:''; position:absolute; bottom:-4px; left:0;
+  width:0; height:2px; background:var(--accent); transition:width 0.3s;
 }
-nav .nav-links a:hover { color: var(--text); }
-nav .nav-links a:hover::after { width: 100%; }
+nav .nav-links a:hover { color:var(--text); }
+nav .nav-links a:hover::after { width:100%; }
 
-/* ─── SECTIONS ─── */
+/* ─── SECTION BASE ─── */
 section {
-  position: relative; min-height: 100vh; scroll-snap-align: start;
-  display: flex; align-items: center; justify-content: center; overflow: hidden;
+  position:relative; min-height:100vh; scroll-snap-align:start;
+  display:flex; align-items:center; justify-content:center; overflow:hidden;
 }
 
 .video-bg {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover; z-index: 0;
-  filter: brightness(0.5) saturate(1.2);
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover; z-index:0;
+  filter:brightness(0.45) saturate(1.3) contrast(1.1);
 }
 
-/* MÁSCARA PRETA — overlay escuro forte */
-.mask {
-  position: absolute; inset: 0; z-index: 1;
-  background: #05070d;
-  opacity: 0.7;
+/* Máscara preta forte */
+.video-mask {
+  position:absolute; inset:0; z-index:1;
+  background:#05070d;
+  opacity:0.75;
 }
 
-.mask-gradient {
-  position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(135deg, rgba(5,7,13,0.95) 0%, rgba(5,7,13,0.5) 50%, transparent 100%);
+.video-gradient {
+  position:absolute; inset:0; z-index:1;
+  background:linear-gradient(135deg, rgba(5,7,13,0.95) 0%, rgba(5,7,13,0.4) 50%, transparent 100%);
 }
 
 .content {
-  position: relative; z-index: 2;
-  max-width: 1100px; width: 100%; padding: 2rem;
+  position:relative; z-index:2;
+  max-width:1100px; width:100%; padding:2rem;
 }
 
 /* ─── SECTION 1: HERO ─── */
-#hero .content { text-align: center; }
+#hero { text-align:center; }
+
+.hero-glow {
+  position:absolute; top:50%; left:50%;
+  width:700px; height:700px;
+  background:radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%);
+  border-radius:50%; z-index:1;
+  transform:translate(-50%,-50%);
+  animation:pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,100% { transform:translate(-50%,-50%) scale(1); opacity:0.5; }
+  50% { transform:translate(-50%,-50%) scale(1.3); opacity:1; }
+}
 
 .badge {
-  display: inline-block;
-  padding: 0.4rem 1.2rem;
-  border: 1px solid rgba(59,130,246,0.3);
-  border-radius: 100px;
-  font-size: 0.7rem; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 2px;
-  color: var(--accent);
-  margin-bottom: 2rem;
+  display:inline-flex; align-items:center; gap:6px;
+  padding:0.35rem 1rem;
+  border:1px solid rgba(59,130,246,0.25);
+  border-radius:100px;
+  font-size:0.65rem; font-weight:600; letter-spacing:2px;
+  text-transform:uppercase; color:var(--accent);
+  margin-bottom:2rem;
 }
 
 #hero h1 {
-  font-size: clamp(3rem, 8vw, 7rem);
-  font-weight: 900; letter-spacing: -3px; line-height: 1;
-  margin-bottom: 1.5rem;
+  font-size:clamp(3rem,8vw,7rem);
+  font-weight:900; letter-spacing:-3px; line-height:1;
+  margin-bottom:1.5rem;
 }
 
-#hero h1 .gradient {
-  background: linear-gradient(135deg, #3b82f6, #a78bfa, #60a5fa);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
+.gradient {
+  background:linear-gradient(135deg, #3b82f6, #a78bfa, #60a5fa);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
 }
 
 #hero p {
-  font-size: clamp(1rem, 1.8vw, 1.2rem);
-  color: var(--text-muted); max-width: 600px;
-  margin: 0 auto 2.5rem; line-height: 1.8;
+  font-size:clamp(0.95rem,1.5vw,1.15rem);
+  color:var(--text-mid); max-width:580px;
+  margin:0 auto 2.5rem; line-height:1.8;
 }
 
-.hero-cta {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 1rem 2.5rem;
-  background: var(--accent); color: #fff;
-  text-decoration: none; font-weight: 700; font-size: 1rem;
-  border-radius: 60px; transition: all 0.3s;
-  box-shadow: 0 0 40px rgba(59,130,246,0.25);
+.btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:0.9rem 2.2rem;
+  background:var(--accent); color:#fff;
+  text-decoration:none; font-weight:700; font-size:0.95rem;
+  border-radius:60px; border:none; cursor:pointer;
+  transition:all 0.3s;
+  box-shadow:0 0 30px rgba(59,130,246,0.2);
 }
+.btn:hover { transform:translateY(-2px); box-shadow:0 0 50px rgba(59,130,246,0.35); }
 
-.hero-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 60px rgba(59,130,246,0.4);
+.btn-outline {
+  padding:0.9rem 2.2rem;
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:60px; background:transparent;
+  color:var(--text); font-weight:600; font-size:0.95rem;
+  text-decoration:none; cursor:pointer; transition:all 0.3s;
+  display:inline-flex; align-items:center; gap:8px;
 }
+.btn-outline:hover { border-color:var(--accent); background:rgba(59,130,246,0.06); }
 
-/* ─── HERO GLOW ORB ─── */
-.hero-glow {
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
-  border-radius: 50%;
-  z-index: 1;
-  pointer-events: none;
-  animation: pulseGlow 4s ease-in-out infinite;
+.scroll-hint {
+  position:absolute; bottom:2rem; left:50%;
+  transform:translateX(-50%); z-index:3;
+  opacity:0.25; display:flex; flex-direction:column; align-items:center; gap:4px;
+  animation:bounce 2s infinite;
 }
-
-@keyframes pulseGlow {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
-  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-}
-
-.scroll-indicator {
-  position: absolute; bottom: 2rem; left: 50%;
-  transform: translateX(-50%); z-index: 3;
-  opacity: 0.3; font-size: 1.5rem;
-  animation: bounce 2s infinite;
-}
+.scroll-hint span { font-size:0.6rem; letter-spacing:2px; text-transform:uppercase; }
+.scroll-hint .arrow { font-size:1.2rem; }
 
 @keyframes bounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(8px); }
+  0%,100% { transform:translateX(-50%) translateY(0); }
+  50% { transform:translateX(-50%) translateY(6px); }
 }
 
 /* ─── SECTION 2: SOBRE ─── */
-#about .content { display: flex; gap: 4rem; align-items: center; }
-#about .text-side { flex: 1; }
+#about .content { display:flex; gap:4rem; align-items:center; }
+#about .text-side { flex:1; }
 
 #about .text-side h2 {
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  font-weight: 800; letter-spacing: -1.5px; margin-bottom: 1.5rem;
+  font-size:clamp(1.8rem,4vw,3rem);
+  font-weight:800; letter-spacing:-1.5px; margin-bottom:1.5rem;
+  line-height:1.2;
 }
 
 #about .text-side p {
-  color: var(--text-muted); line-height: 1.8;
-  font-size: 1rem; margin-bottom: 1rem;
+  color:var(--text-mid); line-height:1.8;
+  font-size:0.95rem; margin-bottom:1rem;
 }
 
-.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+.stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-top:2rem; }
 
 .stat-card {
-  padding: 1.5rem;
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 16px;
-  background: rgba(255,255,255,0.02);
-  backdrop-filter: blur(8px);
+  padding:1.2rem 1.5rem;
+  border:1px solid rgba(255,255,255,0.05);
+  border-radius:var(--radius);
+  background:rgba(255,255,255,0.015);
+  backdrop-filter:blur(12px);
+  transition:all 0.3s;
+}
+.stat-card:hover { border-color:rgba(59,130,246,0.15); }
+.stat-card .num { font-size:1.8rem; font-weight:800; color:var(--accent); }
+.stat-card .label { font-size:0.7rem; color:var(--text-dim); margin-top:0.2rem; letter-spacing:0.5px; text-transform:uppercase; }
+
+/* ─── 3D ORB ─── */
+.orb-container { width:280px; height:280px; flex-shrink:0; position:relative; }
+.orb-ring {
+  position:absolute; border-radius:50%;
+  border:1px solid rgba(59,130,246,0.15);
+  animation:orbit 12s linear infinite;
+}
+.orb-ring:nth-child(1) { inset:0%; }
+.orb-ring:nth-child(2) { inset:10%; animation-duration:8s; animation-direction:reverse; border-color:rgba(167,139,250,0.1); }
+.orb-ring:nth-child(3) { inset:20%; animation-duration:6s; border-color:rgba(96,165,250,0.08); }
+
+.orb-core {
+  position:absolute; inset:25%;
+  border-radius:50%;
+  background:radial-gradient(circle at 40% 40%, rgba(59,130,246,0.25), transparent 70%);
+  filter:blur(15px);
+  animation:corePulse 3s ease-in-out infinite;
 }
 
-.stat-card .num { font-size: 2rem; font-weight: 800; color: var(--accent); }
-.stat-card .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem; letter-spacing: 0.5px; text-transform: uppercase; }
-
-.orb-3d { width: 280px; height: 280px; flex-shrink: 0; position: relative; }
-.orb-3d .ring {
-  position: absolute; inset: 5%;
-  border: 1px solid rgba(59,130,246,0.2);
-  border-radius: 50%;
-  animation: ringSpin 10s linear infinite;
-}
-.orb-3d .ring:nth-child(2) { inset: -5%; animation-duration: 15s; animation-direction: reverse; border-color: rgba(167,139,250,0.15); }
-.orb-3d .ring:nth-child(3) { inset: 15%; animation-duration: 8s; border-color: rgba(96,165,250,0.1); }
-.orb-3d .core {
-  position: absolute; inset: 20%;
-  border-radius: 50%;
-  background: radial-gradient(circle at 40% 40%, rgba(59,130,246,0.3), transparent 70%);
-  filter: blur(20px);
-  animation: pulseCore 3s ease-in-out infinite;
-}
-
-@keyframes ringSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-@keyframes pulseCore { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } }
+@keyframes orbit { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+@keyframes corePulse { 0%,100% { opacity:0.5; transform:scale(1); } 50% { opacity:1; transform:scale(1.15); } }
 
 /* ─── SECTION 3: MÓDULOS ─── */
-#modules .content h2 { text-align: center; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; letter-spacing: -1.5px; margin-bottom: 0.5rem; }
-#modules .content > p { text-align: center; color: var(--text-muted); margin-bottom: 3rem; font-size: 0.95rem; }
+.section-title { text-align:center; font-size:clamp(1.8rem,4vw,3rem); font-weight:800; letter-spacing:-1.5px; margin-bottom:0.5rem; }
+.section-sub { text-align:center; color:var(--text-dim); margin-bottom:3rem; font-size:0.9rem; }
 
 .modules-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1rem;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+  gap:0.8rem;
 }
 
 .module-card {
-  padding: 1.5rem;
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 16px;
-  background: rgba(255,255,255,0.015);
-  backdrop-filter: blur(8px);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  cursor: default;
-  position: relative; overflow: hidden;
+  padding:1.3rem 1.5rem;
+  border:1px solid rgba(255,255,255,0.04);
+  border-radius:var(--radius);
+  background:rgba(255,255,255,0.01);
+  backdrop-filter:blur(8px);
+  transition:all 0.4s cubic-bezier(0.16,1,0.3,1);
+  cursor:default;
+  position:relative; overflow:hidden;
 }
 
 .module-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, var(--accent), #a78bfa);
-  transform: scaleX(0); transform-origin: left; transition: transform 0.5s;
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg, var(--accent), var(--accent2));
+  transform:scaleX(0); transform-origin:left; transition:transform 0.5s;
 }
 
 .module-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(59,130,246,0.15);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  transform:translateY(-3px);
+  border-color:rgba(59,130,246,0.1);
+  box-shadow:0 15px 40px rgba(0,0,0,0.3);
 }
-.module-card:hover::before { transform: scaleX(1); }
+.module-card:hover::before { transform:scaleX(1); }
 
 .module-card .icon {
-  width: 36px; height: 36px; border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1rem; margin-bottom: 0.8rem;
-  background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.1);
+  width:32px; height:32px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.9rem; margin-bottom:0.7rem;
+  background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.08);
 }
 
-.module-card h3 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.4rem; }
-.module-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+.module-card h3 { font-size:0.85rem; font-weight:700; margin-bottom:0.35rem; }
+.module-card p { font-size:0.75rem; color:var(--text-dim); line-height:1.6; }
 
 /* ─── SECTION 4: CTA ─── */
-#cta .content { text-align: center; }
+#cta { text-align:center; }
 
 #cta h2 {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-  font-weight: 900; letter-spacing: -2px; margin-bottom: 1.5rem;
+  font-size:clamp(2.2rem,5vw,4rem);
+  font-weight:900; letter-spacing:-2px; margin-bottom:1.2rem;
 }
 
 #cta p {
-  color: var(--text-muted); font-size: 1.05rem;
-  max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.7;
+  color:var(--text-mid); font-size:1rem;
+  max-width:480px; margin:0 auto 2.5rem; line-height:1.7;
 }
 
-.cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
-.btn-primary {
-  padding: 1rem 2.5rem; background: var(--accent); color: #fff;
-  border: none; border-radius: 60px; font-weight: 700; font-size: 1rem;
-  cursor: pointer; transition: all 0.3s;
-  box-shadow: 0 0 30px rgba(59,130,246,0.2);
-  text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-}
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(59,130,246,0.35); }
-
-.btn-secondary {
-  padding: 1rem 2.5rem; border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 60px; color: var(--text); font-weight: 600; font-size: 1rem;
-  cursor: pointer; transition: all 0.3s; background: transparent;
-  text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-}
-.btn-secondary:hover { border-color: var(--accent); background: rgba(59,130,246,0.06); }
+.cta-group { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
 
 /* ─── SCROLL PROGRESS ─── */
-.scroll-progress {
-  position: fixed; top: 0; left: 0; height: 2px;
-  background: linear-gradient(90deg, var(--accent), #a78bfa);
-  z-index: 2000; transition: width 0.1s; width: 0%;
+#progress {
+  position:fixed; top:0; left:0; height:2px;
+  background:linear-gradient(90deg, var(--accent), var(--accent2));
+  z-index:2000; transition:width 0.1s; width:0%;
 }
 
 /* ─── RESPONSIVE ─── */
-@media (max-width: 768px) {
-  nav { padding: 1rem 1.5rem; }
-  nav .nav-links { display: none; }
-  #about .content { flex-direction: column; gap: 2rem; }
-  .orb-3d { width: 180px; height: 180px; }
-  .stats-grid { grid-template-columns: 1fr; }
-  .modules-grid { grid-template-columns: 1fr; }
+@media (max-width:768px) {
+  nav { padding:1rem 1.5rem; }
+  nav .nav-links { display:none; }
+  #about .content { flex-direction:column; gap:2rem; }
+  .orb-container { width:180px; height:180px; }
+  .stats-grid { grid-template-columns:1fr; }
+  .modules-grid { grid-template-columns:1fr; }
 }
 </style>
 </head>
 <body>
 
-<div class="scroll-progress" id="progress"></div>
+<div id="progress"></div>
 
 <nav>
   <div class="logo">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.5">
       <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
     </svg>
     Hermes<span class="accent">Agent</span>
@@ -317,99 +303,99 @@ section {
   </div>
 </nav>
 
-<!-- ─── SECTION 1: HERO ─── -->
+<!-- ─── SEÇÃO 1: HERO ─── -->
 <section id="hero">
-  <video class="video-bg" autoplay muted loop playsinline poster="">
-    <source src="https://media.istockphoto.com/id/1224356307/video/circuit-board-background-copy-space-blue-loopable-animation-computer-data-technology.mp4?b=1&s=192_srp&k=20&c=IkMLyJf8X5A0jBPLEHxrkf6s4Mwlz" type="video/mp4">
+  <video class="video-bg" autoplay muted loop playsinline>
+    <source src="https://assets.mixkit.co/videos/99786/99786-1080.mp4" type="video/mp4">
   </video>
-  <div class="mask"></div>
-  <div class="mask-gradient"></div>
+  <div class="video-mask"></div>
+  <div class="video-gradient"></div>
   <div class="hero-glow"></div>
 
   <div class="content">
-    <div class="badge">Curso Completo • 15 Módulos</div>
+    <div class="badge">✦ Curso Completo • 15 Módulos</div>
     <h1>Domine o<br><span class="gradient">Hermes Agent</span></h1>
-    <p>O agente de IA open-source mais poderoso do ecossistema. Aprenda a configurar, personalizar e automatizar tudo — do terminal à produção, passando por Telegram, Discord e WhatsApp.</p>
-    <a href="#modules" class="hero-cta">Ver Grade Curricular →</a>
+    <p>O agente de IA open-source mais poderoso do ecossistema. Aprenda a configurar, personalizar e automatizar tudo — do terminal à produção.</p>
+    <a href="#modules" class="btn">Ver Grade Curricular →</a>
   </div>
-  <div class="scroll-indicator">⌄</div>
+  <div class="scroll-hint"><span>Role</span><div class="arrow">⌄</div></div>
 </section>
 
-<!-- ─── SECTION 2: SOBRE ─── -->
+<!-- ─── SEÇÃO 2: SOBRE ─── -->
 <section id="about">
   <video class="video-bg" autoplay muted loop playsinline>
-    <source src="https://media.istockphoto.com/id/1707385922/video/futuristic-cyber-technology-innovation-artificial-intelligence-concept-brain-over-the-circuit.mp4?b=1&s=192_srp&k=20&c=WYirfqKuhj8o9GVlXIjtTQ6itQqUIjWgnb2dq0V2uFc=" type="video/mp4">
+    <source src="https://assets.mixkit.co/videos/51214/51214-1080.mp4" type="video/mp4">
   </video>
-  <div class="mask"></div>
+  <div class="video-mask"></div>
 
   <div class="content">
     <div class="text-side">
       <h2>O que é o <span class="gradient">Hermes Agent</span>?</h2>
       <p>Framework de IA agente open-source criado pela Nous Research. Roda no terminal, Telegram, Discord, WhatsApp — qualquer lugar. Suporta dezenas de provedores de LLM, memória persistente, skills auto-aprendidas e execução autônoma.</p>
-      <p>Neste curso você vai dominar cada aspecto: instalação, configuração, provedores, skills, gateways, cron jobs, multi-agente, MCP, segurança, deploy e muito mais.</p>
-      
+      <p>Neste curso completo, você vai dominar cada aspecto: instalação, configuração, provedores, skills, gateways, cron jobs, multi-agente, MCP, segurança e deploy em produção.</p>
+
       <div class="stats-grid">
-        <div class="stat-card"><div class="num">15</div><div class="label">Módulos Completos</div></div>
+        <div class="stat-card"><div class="num">15</div><div class="label">Módulos</div></div>
         <div class="stat-card"><div class="num">20+</div><div class="label">Provedores</div></div>
-        <div class="stat-card"><div class="num">∞</div><div class="label">Skills Customizáveis</div></div>
+        <div class="stat-card"><div class="num">∞</div><div class="label">Skills</div></div>
         <div class="stat-card"><div class="num">10</div><div class="label">Plataformas</div></div>
       </div>
     </div>
-    <div class="orb-3d">
-      <div class="ring"></div>
-      <div class="ring"></div>
-      <div class="ring"></div>
-      <div class="core"></div>
+    <div class="orb-container">
+      <div class="orb-ring"></div>
+      <div class="orb-ring"></div>
+      <div class="orb-ring"></div>
+      <div class="orb-core"></div>
     </div>
   </div>
 </section>
 
-<!-- ─── SECTION 3: MÓDULOS ─── -->
+<!-- ─── SEÇÃO 3: MÓDULOS ─── -->
 <section id="modules">
   <video class="video-bg" autoplay muted loop playsinline>
-    <source src="https://media.istockphoto.com/id/1569244272/video/microprocessor-symbolizing-generative-ai-processes.mp4?b=1&s=192_srp&k=20&c=UNa0mcPlwRHx8JC3f7zkDuP6" type="video/mp4">
+    <source src="https://assets.mixkit.co/videos/44818/44818-1080.mp4" type="video/mp4">
   </video>
-  <div class="mask"></div>
+  <div class="video-mask"></div>
 
   <div class="content">
-    <h2>Grade <span class="gradient">Curricular</span></h2>
-    <p>15 módulos — do básico ao avançado</p>
+    <h2 class="section-title">Grade <span class="gradient">Curricular</span></h2>
+    <p class="section-sub">15 módulos — do básico ao avançado</p>
 
     <div class="modules-grid">
-      <div class="module-card"><div class="icon">🚀</div><h3>Módulo 1 — Introdução</h3><p>O que é Hermes Agent, história, ecossistema Nous Research, casos de uso reais.</p></div>
-      <div class="module-card"><div class="icon">⚙️</div><h3>Módulo 2 — Instalação</h3><p>Linux, macOS, WSL. Configuração de ambiente, dependências, primeiros passos.</p></div>
-      <div class="module-card"><div class="icon">🔧</div><h3>Módulo 3 — Configuração</h3><p>Config.yaml completo: modelos, provedores, toolsets, segurança, perfis.</p></div>
-      <div class="module-card"><div class="icon">🧠</div><h3>Módulo 4 — Provedores</h3><p>OpenRouter, Anthropic, DeepSeek, Groq, Gemini, Ollama — como escolher e migrar.</p></div>
-      <div class="module-card"><div class="icon">🛠️</div><h3>Módulo 5 — Toolsets</h3><p>Web, browser, terminal, arquivos, visão, delegação, cron — cada um a fundo.</p></div>
-      <div class="module-card"><div class="icon">📚</div><h3>Módulo 6 — Skills</h3><p>Criando, instalando e gerenciando skills. Skill Guard, boas práticas.</p></div>
-      <div class="module-card"><div class="icon">💾</div><h3>Módulo 7 — Memória</h3><p>Memória persistente, perfis de usuário, Honcho, Mem0 — agente que lembra.</p></div>
-      <div class="module-card"><div class="icon">🌐</div><h3>Módulo 8 — Gateway</h3><p>Telegram, Discord, WhatsApp, Slack — configuração, segurança, slash commands.</p></div>
-      <div class="module-card"><div class="icon">⏰</div><h3>Módulo 9 — Cron</h3><p>Automação agendada, watchdogs, pipelines periódicas, webhooks event-driven.</p></div>
-      <div class="module-card"><div class="icon">👥</div><h3>Módulo 10 — Multi-Agente</h3><p>Kanban orchestrator, delegação, subagentes, workflows paralelos.</p></div>
-      <div class="module-card"><div class="icon">🔄</div><h3>Módulo 11 — MCP</h3><p>Model Context Protocol, servidores MCP, plugin system, extensibilidade.</p></div>
-      <div class="module-card"><div class="icon">🔐</div><h3>Módulo 12 — Segurança</h3><p>Approvals, Tirith, allowlists, YOLO mode, bloqueio de comandos destrutivos.</p></div>
-      <div class="module-card"><div class="icon">📊</div><h3>Módulo 13 — Performance</h3><p>Custo por token, cache de prompt, compressão, benchmarks.</p></div>
-      <div class="module-card"><div class="icon">☁️</div><h3>Módulo 14 — Deploy</h3><p>VPS, Docker, Tailscale, systemd, profiling, logs, monitoramento.</p></div>
-      <div class="module-card"><div class="icon">🏆</div><h3>Módulo 15 — Projeto Final</h3><p>Assistente completo multi-plataforma com skills próprias e automações.</p></div>
+      <div class="module-card"><div class="icon">🚀</div><h3>1. Introdução</h3><p>O que é Hermes Agent, história, ecossistema Nous Research, casos de uso.</p></div>
+      <div class="module-card"><div class="icon">⚙️</div><h3>2. Instalação</h3><p>Linux, macOS, WSL. Ambiente, dependências, primeiros passos.</p></div>
+      <div class="module-card"><div class="icon">🔧</div><h3>3. Configuração</h3><p>Config.yaml completo: modelos, provedores, toolsets, segurança, perfis.</p></div>
+      <div class="module-card"><div class="icon">🧠</div><h3>4. Provedores</h3><p>OpenRouter, Anthropic, DeepSeek, Groq, Gemini, Ollama — como escolher.</p></div>
+      <div class="module-card"><div class="icon">🛠️</div><h3>5. Toolsets</h3><p>Web, browser, terminal, arquivos, visão, delegação, cron.</p></div>
+      <div class="module-card"><div class="icon">📚</div><h3>6. Skills</h3><p>Criando, instalando, gerenciando. Skill Guard, boas práticas.</p></div>
+      <div class="module-card"><div class="icon">💾</div><h3>7. Memória</h3><p>Memória persistente, perfis, Honcho, Mem0.</p></div>
+      <div class="module-card"><div class="icon">🌐</div><h3>8. Gateway</h3><p>Telegram, Discord, WhatsApp. Config, segurança, slash commands.</p></div>
+      <div class="module-card"><div class="icon">⏰</div><h3>9. Cron</h3><p>Automação agendada, watchdogs, pipelines, webhooks.</p></div>
+      <div class="module-card"><div class="icon">👥</div><h3>10. Multi-Agente</h3><p>Kanban, delegação, subagentes, workflows paralelos.</p></div>
+      <div class="module-card"><div class="icon">🔄</div><h3>11. MCP</h3><p>Model Context Protocol, servidores MCP, plugins.</p></div>
+      <div class="module-card"><div class="icon">🔐</div><h3>12. Segurança</h3><p>Approvals, Tirith, allowlists, comandos destrutivos.</p></div>
+      <div class="module-card"><div class="icon">📊</div><h3>13. Performance</h3><p>Custo por token, cache de prompt, compressão, benchmarks.</p></div>
+      <div class="module-card"><div class="icon">☁️</div><h3>14. Deploy</h3><p>VPS, Docker, Tailscale, systemd, logs, monitoramento.</p></div>
+      <div class="module-card"><div class="icon">🏆</div><h3>15. Projeto Final</h3><p>Assistente multi-plataforma com skills e automações.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ─── SECTION 4: CTA ─── -->
+<!-- ─── SEÇÃO 4: CTA ─── -->
 <section id="cta">
   <video class="video-bg" autoplay muted loop playsinline>
-    <source src="https://media.istockphoto.com/id/1491463133/video/illustrative-3d-animation-of-neural-network-concept-chatbot-artificial-intelligence-deep.mp4?b=1&s=192_srp&k=20&c=n-GA" type="video/mp4">
+    <source src="https://assets.mixkit.co/videos/31378/31378-1080.mp4" type="video/mp4">
   </video>
-  <div class="mask"></div>
-  <div class="hero-glow" style="opacity:0.3;"></div>
+  <div class="video-mask"></div>
+  <div class="hero-glow" style="opacity:0.25;"></div>
 
   <div class="content">
-    <div class="badge">Próxima Turma em Breve</div>
+    <div class="badge">✦ Em Breve</div>
     <h2>Pronto para <span class="gradient">dominar</span> o Hermes Agent?</h2>
     <p>15 módulos, aulas práticas, comunidade exclusiva e suporte direto. Do terminal à produção.</p>
-    <div class="cta-buttons">
-      <a href="#" class="btn-primary">🔥 Garantir Minha Vaga</a>
-      <a href="#modules" class="btn-secondary">📋 Ver Grade Completa</a>
+    <div class="cta-group">
+      <a href="#" class="btn">🔥 Garantir Minha Vaga</a>
+      <a href="#modules" class="btn-outline">📋 Grade Completa</a>
     </div>
   </div>
 </section>
@@ -422,9 +408,9 @@ window.addEventListener('scroll', () => {
   document.getElementById('progress').style.width = (st / sh * 100) + '%';
 });
 
-// Intersection Observer for cards
-const observer = new IntersectionObserver((e) => {
-  e.forEach(entry => {
+// Reveal cards on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.style.opacity = '1';
       entry.target.style.transform = 'translateY(0)';
@@ -439,6 +425,5 @@ document.querySelectorAll('.module-card').forEach(card => {
   observer.observe(card);
 });
 </script>
-
 </body>
 </html>
