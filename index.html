@@ -56,19 +56,17 @@ section {
   position:absolute; inset:0;
   width:100%; height:100%;
   object-fit:cover; z-index:0;
-  filter:brightness(0.45) saturate(1.3) contrast(1.1);
 }
 
-/* Máscara preta forte */
+/* Máscara preta — sutil, deixa o vídeo aparecer */
 .video-mask {
   position:absolute; inset:0; z-index:1;
-  background:#05070d;
-  opacity:0.75;
-}
-
-.video-gradient {
-  position:absolute; inset:0; z-index:1;
-  background:linear-gradient(135deg, rgba(5,7,13,0.95) 0%, rgba(5,7,13,0.4) 50%, transparent 100%);
+  background:linear-gradient(
+    180deg,
+    rgba(5,7,13,0.85) 0%,
+    rgba(5,7,13,0.4) 50%,
+    rgba(5,7,13,0.85) 100%
+  );
 }
 
 .content {
@@ -76,22 +74,8 @@ section {
   max-width:1100px; width:100%; padding:2rem;
 }
 
-/* ─── SECTION 1: HERO ─── */
+/* ─── HERO ─── */
 #hero { text-align:center; }
-
-.hero-glow {
-  position:absolute; top:50%; left:50%;
-  width:700px; height:700px;
-  background:radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%);
-  border-radius:50%; z-index:1;
-  transform:translate(-50%,-50%);
-  animation:pulse 4s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%,100% { transform:translate(-50%,-50%) scale(1); opacity:0.5; }
-  50% { transform:translate(-50%,-50%) scale(1.3); opacity:1; }
-}
 
 .badge {
   display:inline-flex; align-items:center; gap:6px;
@@ -156,23 +140,20 @@ section {
   50% { transform:translateX(-50%) translateY(6px); }
 }
 
-/* ─── SECTION 2: SOBRE ─── */
+/* ─── SOBRE ─── */
 #about .content { display:flex; gap:4rem; align-items:center; }
 #about .text-side { flex:1; }
-
 #about .text-side h2 {
   font-size:clamp(1.8rem,4vw,3rem);
   font-weight:800; letter-spacing:-1.5px; margin-bottom:1.5rem;
   line-height:1.2;
 }
-
 #about .text-side p {
   color:var(--text-mid); line-height:1.8;
   font-size:0.95rem; margin-bottom:1rem;
 }
 
 .stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-top:2rem; }
-
 .stat-card {
   padding:1.2rem 1.5rem;
   border:1px solid rgba(255,255,255,0.05);
@@ -195,7 +176,6 @@ section {
 .orb-ring:nth-child(1) { inset:0%; }
 .orb-ring:nth-child(2) { inset:10%; animation-duration:8s; animation-direction:reverse; border-color:rgba(167,139,250,0.1); }
 .orb-ring:nth-child(3) { inset:20%; animation-duration:6s; border-color:rgba(96,165,250,0.08); }
-
 .orb-core {
   position:absolute; inset:25%;
   border-radius:50%;
@@ -203,11 +183,10 @@ section {
   filter:blur(15px);
   animation:corePulse 3s ease-in-out infinite;
 }
-
 @keyframes orbit { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
 @keyframes corePulse { 0%,100% { opacity:0.5; transform:scale(1); } 50% { opacity:1; transform:scale(1.15); } }
 
-/* ─── SECTION 3: MÓDULOS ─── */
+/* ─── MÓDULOS ─── */
 .section-title { text-align:center; font-size:clamp(1.8rem,4vw,3rem); font-weight:800; letter-spacing:-1.5px; margin-bottom:0.5rem; }
 .section-sub { text-align:center; color:var(--text-dim); margin-bottom:3rem; font-size:0.9rem; }
 
@@ -227,43 +206,36 @@ section {
   cursor:default;
   position:relative; overflow:hidden;
 }
-
 .module-card::before {
   content:''; position:absolute; top:0; left:0; right:0; height:2px;
   background:linear-gradient(90deg, var(--accent), var(--accent2));
   transform:scaleX(0); transform-origin:left; transition:transform 0.5s;
 }
-
 .module-card:hover {
   transform:translateY(-3px);
   border-color:rgba(59,130,246,0.1);
   box-shadow:0 15px 40px rgba(0,0,0,0.3);
 }
 .module-card:hover::before { transform:scaleX(1); }
-
 .module-card .icon {
   width:32px; height:32px; border-radius:8px;
   display:flex; align-items:center; justify-content:center;
   font-size:0.9rem; margin-bottom:0.7rem;
   background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.08);
 }
-
 .module-card h3 { font-size:0.85rem; font-weight:700; margin-bottom:0.35rem; }
 .module-card p { font-size:0.75rem; color:var(--text-dim); line-height:1.6; }
 
-/* ─── SECTION 4: CTA ─── */
+/* ─── CTA ─── */
 #cta { text-align:center; }
-
 #cta h2 {
   font-size:clamp(2.2rem,5vw,4rem);
   font-weight:900; letter-spacing:-2px; margin-bottom:1.2rem;
 }
-
 #cta p {
   color:var(--text-mid); font-size:1rem;
   max-width:480px; margin:0 auto 2.5rem; line-height:1.7;
 }
-
 .cta-group { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
 
 /* ─── SCROLL PROGRESS ─── */
@@ -303,14 +275,12 @@ section {
   </div>
 </nav>
 
-<!-- ─── SEÇÃO 1: HERO ─── -->
+<!-- SEÇÃO 1: HERO ─── -->
 <section id="hero">
   <video class="video-bg" autoplay muted loop playsinline>
-    <source src="https://assets.mixkit.co/videos/99786/99786-1080.mp4" type="video/mp4">
+    <source src="videos/99786.mp4" type="video/mp4">
   </video>
   <div class="video-mask"></div>
-  <div class="video-gradient"></div>
-  <div class="hero-glow"></div>
 
   <div class="content">
     <div class="badge">✦ Curso Completo • 15 Módulos</div>
@@ -321,10 +291,10 @@ section {
   <div class="scroll-hint"><span>Role</span><div class="arrow">⌄</div></div>
 </section>
 
-<!-- ─── SEÇÃO 2: SOBRE ─── -->
+<!-- SEÇÃO 2: SOBRE ─── -->
 <section id="about">
   <video class="video-bg" autoplay muted loop playsinline>
-    <source src="https://assets.mixkit.co/videos/51214/51214-1080.mp4" type="video/mp4">
+    <source src="videos/51214.mp4" type="video/mp4">
   </video>
   <div class="video-mask"></div>
 
@@ -350,10 +320,10 @@ section {
   </div>
 </section>
 
-<!-- ─── SEÇÃO 3: MÓDULOS ─── -->
+<!-- SEÇÃO 3: MÓDULOS ─── -->
 <section id="modules">
   <video class="video-bg" autoplay muted loop playsinline>
-    <source src="https://assets.mixkit.co/videos/44818/44818-1080.mp4" type="video/mp4">
+    <source src="videos/44818.mp4" type="video/mp4">
   </video>
   <div class="video-mask"></div>
 
@@ -381,13 +351,12 @@ section {
   </div>
 </section>
 
-<!-- ─── SEÇÃO 4: CTA ─── -->
+<!-- SEÇÃO 4: CTA ─── -->
 <section id="cta">
   <video class="video-bg" autoplay muted loop playsinline>
-    <source src="https://assets.mixkit.co/videos/31378/31378-1080.mp4" type="video/mp4">
+    <source src="videos/31378.mp4" type="video/mp4">
   </video>
   <div class="video-mask"></div>
-  <div class="hero-glow" style="opacity:0.25;"></div>
 
   <div class="content">
     <div class="badge">✦ Em Breve</div>
@@ -408,7 +377,7 @@ window.addEventListener('scroll', () => {
   document.getElementById('progress').style.width = (st / sh * 100) + '%';
 });
 
-// Reveal cards on scroll
+// Intersection Observer for cards
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
